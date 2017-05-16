@@ -54,7 +54,7 @@ $('#phoneBtn').click(function(){
                         <dt>Latitude, Longitude</dt>\
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
-                            <a href="geo:' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                            <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
                         </dd>\
                         <dt>Note</dt>\
                         <dd>' + data.locpins[i].note + '</dd>\
