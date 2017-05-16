@@ -43,7 +43,7 @@ $('#phoneBtn').click(function(){
         })
         .done(function(data) {
             //alert("success");
-            fillModal();
+            
             $('#modalBody').html('<div id="locpinList" class="list-group"></div>');
             for(var i=0; i<data.locpins.length;i++){
                 var gpsCoordinates = data.locpins[i].latitude + ',' + data.locpins[i].longitude;
