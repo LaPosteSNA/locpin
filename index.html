@@ -34,7 +34,7 @@
 			<div class="panel-content ">
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></span>
-					<input id="phoneInput" type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control input-lg" id="basic-url" aria-describedby="basic-addon3" placeholder="+33123456789">
+					<input id="phoneInput" type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control input-lg" id="basic-url" aria-describedby="basic-addon3" placeholder="33123456789">
 					<span class="input-group-btn">
 						<button id="phoneBtn" class="btn btn-default btn-lg" type="button">OK<span class="glyphicon glyphicon-chevron-right"></button>
 						</span>
@@ -50,17 +50,19 @@
 					<!-- <div class="panel panel-default" id="yourElement"></div> -->
 					<div class="btn-group btn-group-justified" role="group">
 						<div class="btn-group" role="group">
-							<button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-barcode"></span><br/>Scan</button>
+							<button id="qaggaBtn" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-barcode"></span><br/>Scan</button>
 						</div>
 						<div class="btn-group" role="group">
 							<div class="fake-btn">
 								<label class="btn btn-default btn-file btn-lg label-btn"><span class="glyphicon glyphicon-camera"></span><br/>Photo<input type="file" accept="image/*" style="display:none;" capture>
 							</label>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
+			<div id="qaggaDiv"></div>
 			<!-- Modal -->
 			<div class="modal fade" id="infosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">

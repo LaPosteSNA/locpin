@@ -15,10 +15,7 @@
 //       console.log("Initialization finished. Ready to start");
 //       Quagga.start();
 //   });
-
-function parsePhoneNumber(str){
-
-}
+var isScanning = false;
 
 $('#phoneBtn').click(function(){
         $(function() {
@@ -71,4 +68,29 @@ $('#phoneBtn').click(function(){
             else alert("Impossible de contacter les serveurs Locpin.");
         });
     });
+});
+
+$('#qaggaBtn').click(function(){
+    if(isScanning){
+        Qagga.stop();
+    }
+    else{
+        Quagga.init({
+            inputStream : {
+              name : "Live",
+              type : "LiveStream",
+              target: document.querySelector('#qaggaDiv')    // Or '#yourElement' (optional)
+            },
+            decoder : {
+              readers : ["code_128_reader"]
+            }
+          }, function(err) {
+              if (err) {
+                  console.log(err);
+                  return
+              }
+              console.log("Initialization finished. Ready to start");
+              Quagga.start();
+        });
+    }
 });
