@@ -82,7 +82,7 @@ $('#qaggaBtn').click(function(){
               target: document.querySelector('#qaggaDiv')    // Or '#yourElement' (optional)
             },
             decoder : {
-              readers : ["code_128_reader"]
+              readers : ["ean_reader"]
             }
           }, function(err) {
               if (err) {
