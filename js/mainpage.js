@@ -75,6 +75,7 @@ $('#qaggaBtn').click(function(){
         Qagga.stop();
     }
     else{
+
         Quagga.init({
             inputStream : {
               name : "Live",
@@ -90,7 +91,7 @@ $('#qaggaBtn').click(function(){
                   return
               }
               console.log("Initialization finished. Ready to start");
-              Quagga.start();
+              Quagga.attachListeners();
               isScanning = true;
         });
 
