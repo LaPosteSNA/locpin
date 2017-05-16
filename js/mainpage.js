@@ -46,7 +46,7 @@ $('#phoneBtn').click(function(){
             fillModal();
             $('#modalBody').html('<div id="locpinList" class="list-group"></div>');
             for(var i=0; i<data.locpins.length;i++){
-                var gpsCoordinates = data.locpins[i].longitude + ',' + data.locpins[i].latitude;
+                var gpsCoordinates = data.locpins[i].latitude + ',' + data.locpins[i].longitude;
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
                         <dt>Noms</dt>\
@@ -72,8 +72,3 @@ $('#phoneBtn').click(function(){
         });
     });
 });
-
-function fillModal(){
-    //TODO: empty the modal
-    
-}
