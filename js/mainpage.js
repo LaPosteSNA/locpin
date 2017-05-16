@@ -86,12 +86,12 @@ $('#qaggaBtn').click(function(){
               readers : ["ean_reader"]
             },
             debug: {
-              drawBoundingBox: false,
-              showFrequency: false,
-              drawScanline: false,
-              showPattern: false
+              drawBoundingBox: true,
+              showFrequency: true,
+              drawScanline: true,
+              showPattern: true
             },
-            multiple: false
+            multiple: true
           }, function(err) {
               if (err) {
                   console.log(err);
