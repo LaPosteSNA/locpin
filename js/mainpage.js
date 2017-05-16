@@ -91,6 +91,7 @@ $('#qaggaBtn').click(function(){
               }
               console.log("Initialization finished. Ready to start");
               Quagga.start();
+              isScanning = true;
         });
     }
 });
