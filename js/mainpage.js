@@ -72,7 +72,7 @@ $('#phoneBtn').click(function(){
 
 $('#qaggaBtn').click(function(){
     if(isScanning){
-        Qagga.stop();
+        Quagga.stop();
     }
     else{
 
@@ -84,7 +84,14 @@ $('#qaggaBtn').click(function(){
             },
             decoder : {
               readers : ["ean_reader"]
-            }
+            },
+            debug: {
+              drawBoundingBox: false,
+              showFrequency: false,
+              drawScanline: false,
+              showPattern: false
+            },
+            multiple: false
           }, function(err) {
               if (err) {
                   console.log(err);
