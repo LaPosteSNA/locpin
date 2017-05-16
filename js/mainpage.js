@@ -91,7 +91,6 @@ $('#qaggaBtn').click(function(){
                   return
               }
               console.log("Initialization finished. Ready to start");
-              Quagga.attachListeners();
               isScanning = true;
         });
 
@@ -117,6 +116,11 @@ $('#qaggaBtn').click(function(){
                     Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
                 }
             }
+        });
+
+        Quagga.onDetected(function(result) {
+            var code = result.codeResult.code;
+            alert(code);
         });
     }
 });
