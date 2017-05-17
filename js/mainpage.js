@@ -99,6 +99,7 @@ $('#qaggaBtn').click(function(){
               }
               console.log("Initialization finished. Ready to start");
               isScanning = true;
+              Quagga.start();
         });
 
         Quagga.onProcessed(function(result) {
