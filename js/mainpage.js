@@ -72,6 +72,7 @@ $('#phoneBtn').click(function(){
 
 $('#qaggaBtn').click(function(){
     if(isScanning){
+        isScanning = false;
         Quagga.stop();
     }
     else{
