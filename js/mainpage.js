@@ -17,6 +17,18 @@
 //   });
 var isScanning = false;
 
+$('#geolocBtn').click(function(){
+    console.log('hi');
+    navigator.geolocation.watchPosition(function(position) {
+      $('#geolocBtn').prop('disabled', true);
+      $('#collapseOne').collapse();
+    });
+});
+
+function geoloc(){
+    console.log("hello");
+}
+
 $('#phoneBtn').click(function(){
         $(function() {
         var params = {

@@ -32,6 +32,7 @@
 				<h1 class="panel-title">Localiser avec un numéro de téléphone</h1>
 			</div>
 			<div class="panel-content ">
+
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></span>
 					<input id="phoneInput" type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control input-lg" id="basic-url" aria-describedby="basic-addon3" placeholder="33123456789">
@@ -41,6 +42,27 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h1 class="panel-title">Localiser un point de livraison à proximité</h1>
+				</div>
+				<div class="panel-content ">
+					<button id="geolocBtn" class="btn btn-default btn-lg" role="button" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			          Activer la géolocalisation
+			        </button>
+			        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+				      <div class="panel-body">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon3"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+							<input id="personInput" type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control input-lg" id="basic-url" aria-describedby="basic-addon3" placeholder="Prénom Nom">
+							<span class="input-group-btn">
+								<button id="personBtn" class="btn btn-default btn-lg" type="button">OK<span class="glyphicon glyphicon-chevron-right"></button>
+								</span>
+							</div>
+						</div>
+				      </div>
+				    </div>
+				</div>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h1 class="panel-title">Localiser avec un code-barre</h1>
