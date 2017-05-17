@@ -74,6 +74,7 @@ $('#qaggaBtn').click(function(){
     if(isScanning){
         isScanning = false;
         Quagga.stop();
+        $('#qaggaDiv').html("");
     }
     else{
 
