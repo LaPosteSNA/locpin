@@ -18,7 +18,6 @@
 var isScanning = false;
 var pos;
 $('#geolocBtn').click(function(){
-    console.log('hi');
     navigator.geolocation.watchPosition(function(position) {
         $('#geolocBtn').prop('disabled', true);
         $('#geolocBtn').html('Géolocalisation activée')
@@ -37,11 +36,8 @@ $('#personBtn').click(function(){
         };
         displayModal(params);
     }
+    else console.log("No geoloc available.");
 });
-
-function geoloc(){
-    console.log("hello");
-}
 
 $('#phoneBtn').click(function(){
     var params = {
@@ -59,7 +55,7 @@ $('#phoneBtn').click(function(){
 
 
 function displayModal(params){
-    $('#modalBody').html('<p>Veuillez patienter...</p>');
+    //$('#modalBody').html('<p>Veuillez patienter...</p>');
     $('#infosModal').modal('show');
     $.ajax({
         url: "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" + $.param(params),
