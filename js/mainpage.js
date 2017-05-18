@@ -16,13 +16,27 @@
 //       Quagga.start();
 //   });
 var isScanning = false;
-
+var pos;
 $('#geolocBtn').click(function(){
     console.log('hi');
     navigator.geolocation.watchPosition(function(position) {
-      $('#geolocBtn').prop('disabled', true);
-      $('#collapseOne').collapse();
+        $('#geolocBtn').prop('disabled', true);
+        $('#geolocBtn').html('Géolocalisation activée')
+        $('#collapseOne').collapse();
+        pos = position;
     });
+});
+
+$('#personBtn').click(function(){
+    if(pos){
+        var params = {
+            "name": $('#personInput').val(),
+            "latitude": pos.coords.latitude,
+            "longitude": pos.coords.longitude,
+            // "range": "{integer}",
+        };
+        displayModal(params);
+    }
 });
 
 function geoloc(){
@@ -30,29 +44,36 @@ function geoloc(){
 }
 
 $('#phoneBtn').click(function(){
-        $(function() {
-        var params = {
-            // Request parameters
-            // "emailAddress": "{string}",
-            "phoneNumber": $('#phoneInput').val()
-            // "name": "{string}",
-            // "postalAddress": "{string}",
-            // "latitude": "{number}",
-            // "longitude": "{number}",
-            // "range": "{integer}",
-        };
-      
-        $.ajax({
-            url: "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" + $.param(params),
-            beforeSend: function(xhrObj){
-                // Request headers
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","09a3083ac93e4a17a69a780b04f71875");
-            },
-            type: "GET"
-        })
-        .done(function(data) {
-            //alert("success");
-            
+    var params = {
+        // Request parameters
+        // "emailAddress": "{string}",
+        "phoneNumber": $('#phoneInput').val()
+        // "name": "{string}",
+        // "postalAddress": "{string}",
+        // "latitude": "{number}",
+        // "longitude": "{number}",
+        // "range": "{integer}",
+    };
+    displayModal(params);
+});
+
+
+function displayModal(params){
+    $('#modalBody').html('<p>Veuillez patienter...</p>');
+    $('#infosModal').modal('show');
+    $.ajax({
+        url: "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" + $.param(params),
+        beforeSend: function(xhrObj){
+            // Request headers
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","09a3083ac93e4a17a69a780b04f71875");
+        },
+        type: "GET"
+    })
+    .done(function(data) {
+        if(data.locpins.length < 1){
+            $('#modalBody').html('<p>Aucun Locpin correspondant aux détails fournis.</p>');
+        }
+        else {
             $('#modalBody').html('<div id="locpinList" class="list-group"></div>');
             for(var i=0; i<data.locpins.length;i++){
                 var gpsCoordinates = data.locpins[i].latitude + ',' + data.locpins[i].longitude;
@@ -70,23 +91,23 @@ $('#phoneBtn').click(function(){
                     </dl>'
                 );
             }
-            $('#infosModal').modal('show');
-        })
-        .fail(function(data) {
-            if(data.status == 400)
-            {
-                alert("Mauvaise requete. Spécifiez un numéro de téléphone, un nom ou une adresse e-mail.");
-            }
-            else alert("Impossible de contacter les serveurs Locpin.");
-        });
+        }
+    })
+    .fail(function(data) {
+        $('#infosModal').modal('hide');
+        if(data.status == 400)
+        {
+            alert("Mauvaise requete. Spécifiez un numéro de téléphone, un nom ou une adresse e-mail.");
+        }
+        else alert("Impossible de contacter les serveurs Locpin.");
     });
-});
+}
 
-$('#qaggaBtn').click(function(){
+$('#quaggaBtn').click(function(){
     if(isScanning){
         isScanning = false;
         Quagga.stop();
-        $('#qaggaDiv').html("");
+        $('#quaggaDiv').html("");
     }
     else{
 
@@ -94,7 +115,7 @@ $('#qaggaBtn').click(function(){
             inputStream : {
               name : "Live",
               type : "LiveStream",
-              target: document.querySelector('#qaggaDiv')    // Or '#yourElement' (optional)
+              target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
             },
             decoder : {
               readers : ["ean_reader"]
