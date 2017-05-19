@@ -15,8 +15,13 @@
 //       console.log("Initialization finished. Ready to start");
 //       Quagga.start();
 //   });
+
+/* Key owner : Tom Solacroup */
+var GMapsKey = "AIzaSyAI0F1EVaU9Wvr7yv8ZvOt1iKV9iKdpopw";
+
 var isScanning = false;
 var pos;
+
 $('#geolocBtn').click(function(){
     navigator.geolocation.watchPosition(function(position) {
         $('#geolocBtn').prop('disabled', true);
@@ -77,13 +82,17 @@ function displayModal(params){
                     '<dl class="dl-horizontal list-group-item">\
                         <dt>Labels</dt>\
                         <dd>' + data.locpins[i].labels + '</dd>\
+                        <dt>Note</dt>\
+                        <dd>' + data.locpins[i].note + '</dd>\
                         <dt>Latitude, Longitude</dt>\
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
-                            <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                            <div class="btn-group" role="group">\
+                                <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                                <a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>\
+                                <!-- <a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>-->\
+                            </div>\
                         </dd>\
-                        <dt>Note</dt>\
-                        <dd>' + data.locpins[i].note + '</dd>\
                     </dl>'
                 );
             }
