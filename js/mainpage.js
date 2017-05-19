@@ -75,7 +75,7 @@ function displayModal(params){
                 var gpsCoordinates = data.locpins[i].latitude + ',' + data.locpins[i].longitude;
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
-                        <dt>Noms</dt>\
+                        <dt>Labels</dt>\
                         <dd>' + data.locpins[i].labels + '</dd>\
                         <dt>Latitude, Longitude</dt>\
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
