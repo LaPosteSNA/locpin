@@ -17,7 +17,7 @@
 //   });
 
 /* Key owner : Tom Solacroup */
-var GMapsKey = "AIzaSyAI0F1EVaU9Wvr7yv8ZvOt1iKV9iKdpopw";
+var GStaticMapsKey = "AIzaSyDkopOaAfNpTcySf81Ji_hk9qUHDe7rHVQ";
 
 var isScanning = false;
 var pos;
@@ -70,7 +70,6 @@ $('#phoneBtn').click(function(){
 
 
 function displayModal(params){
-    //$('#modalBody').html('<p>Veuillez patienter...</p>');
     $('#infosModal').modal('show');
     $.ajax({
         url: "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" + $.param(params),
@@ -99,12 +98,21 @@ function displayModal(params){
                             <!-- Standard button -->\
                             <div class="btn-group" role="group">\
                                 <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
-                                <a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>\
-                                <!-- <a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>-->\
+                                <!--<a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GStaticMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>-->\
+                                <button id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road" ></span> Carte</a>\
                             </div>\
                         </dd>\
                     </dl>'
                 );
+
+                $('#satelliteViewBtn').click(function(){
+                    $('#satelliteViewModal').modal('show');
+                    w = Math.floor($(window).width() * 0.89); //magic numbers lol
+                    h = Math.floor($(window).height() * 0.72);
+                    var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=' + gpsCoordinates;
+                    $('#satelliteViewContent').html('<img src="'+imgsrc+'" />')
+                    console.log(imgsrc);
+                });
             }
         }
     })
