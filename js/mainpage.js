@@ -23,13 +23,23 @@ var isScanning = false;
 var pos;
 
 $('#geolocBtn').click(function(){
-    navigator.geolocation.watchPosition(function(position) {
-        $('#geolocBtn').prop('disabled', true);
-        $('#geolocBtn').html('Géolocalisation activée')
-        $('#collapseOne').collapse();
-        pos = position;
-    });
+    $('#geolocBtn').prop('disabled', true);
+    $('#geolocBtn').html('Géolocalisation en cours...')
+    navigator.geolocation.watchPosition(geo_success, geo_error, {enableHighAccuracy:true, maximumAge:3000, timeout:27000});
 });
+
+function geo_success(position){
+    $('#geolocBtn').prop('disabled', true);
+    $('#geolocBtn').html('Géolocalisation activée')
+    $('#collapseOne').collapse();
+    pos = position;
+}
+
+function geo_error(error){
+    $('#geolocBtn').prop('disabled', false);
+    $('#geolocBtn').html('Activer la géolocalisation')
+    alert("Echec de la géolocalisation");
+}
 
 $('#personBtn').click(function(){
     if(pos){
