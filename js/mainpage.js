@@ -87,32 +87,46 @@ function displayModal(params){
             $('#modalBody').html('<div id="locpinList" class="list-group"></div>');
             for(var i=0; i<data.locpins.length;i++){
                 var gpsCoordinates = data.locpins[i].latitude + ',' + data.locpins[i].longitude;
+                w = Math.floor($(window).width() * 0.9);
+                h = Math.floor($(window).height() * 0.9);
+
+                //add + '&markers=label:L%7C' + gpsCoordinates + '&markers=size:mid%7Ccolor:0xf7ea85%7Clabel:P%7C' + data.locpins[i].line4 + ' ' + data.locpins[i].postCode at the end to pinpoint the postal adress
+                var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=label:L%7C' + gpsCoordinates;
+                
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
-                        <dt>Labels</dt>\
-                        <dd>' + data.locpins[i].labels + '</dd>\
-                        <dt>Note</dt>\
-                        <dd>' + data.locpins[i].note + '</dd>\
+                        <address>\
+                          <strong>'+data.locpins[i].line1+'</strong><br>\
+                          '+data.locpins[i].line2+' '+data.locpins[i].line3+'<br>\
+                          '+data.locpins[i].line4+'<br>\
+                          '+data.locpins[i].postCode+' '+data.locpins[i].city+'<br>\
+                        </address>\
                         <dt>Latitude, Longitude</dt>\
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
                             <div class="btn-group" role="group">\
                                 <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
                                 <!--<a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GStaticMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>-->\
-                                <button id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road" ></span> Carte</a>\
+                                <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
                             </div>\
                         </dd>\
                     </dl>'
                 );
 
-                $('#satelliteViewBtn').click(function(){
-                    $('#satelliteViewModal').modal('show');
-                    w = Math.floor($(window).width() * 0.89); //magic numbers lol
-                    h = Math.floor($(window).height() * 0.72);
-                    var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=' + gpsCoordinates;
-                    $('#satelliteViewContent').html('<img src="'+imgsrc+'" />')
-                    console.log(imgsrc);
-                });
+                    // <address>\
+                    //         <strong>'+data.locpins[i].line1+'</strong><br/>\
+                    //         '+data.locpins[i].line2+' '+data.locpins[i].line3+'<br/>\
+                    //         '+data.locpins[i].line4+'<br/>\
+                    //         '+data.locpins[i].postCode+' '+data.locpins[i].city+'<br/>\
+                    //     </address>\   
+                // $('#satelliteViewBtn').click(function(){
+                //     $('#satelliteViewModal').modal('show');
+                //     w = Math.floor($(window).width() * 0.9);
+                //     h = Math.floor($(window).height() * 0.9);
+                //     var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=' + gpsCoordinates;
+                //     $('#satelliteViewContent').html('<img src="'+imgsrc+'" />')
+                //     console.log(imgsrc);
+                // });
             }
         }
     })
