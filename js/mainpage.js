@@ -136,10 +136,14 @@ $('#quaggaBtn').click(function(){
 
     Quagga.init({
         inputStream : {
-          name : "Live",
-          type : "LiveStream",
-          target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
-          size: 640  // restrict input-size to be 800px in width (long-side)
+            name : "Live",
+            type : "LiveStream",
+            target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
+            constraints: {
+                width: 200,
+                height: 200,
+                facing: "environment" // or user
+            }
         },
         decoder : {
           readers : ["ean_reader"]
