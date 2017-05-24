@@ -133,6 +133,11 @@ $('#scanModal').on('hidden.bs.modal', function () {
 $('#quaggaBtn').click(function(){
     $('#scanModal').modal('show');
 
+        isScanning = true;
+          Quagga.start();
+
+    
+});
 
     Quagga.init({
         inputStream : {
@@ -170,8 +175,8 @@ $('#quaggaBtn').click(function(){
               return
           }
           console.log("Initialization finished. Ready to start");
-          isScanning = true;
-         
+          
+    });
 
     Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
@@ -201,7 +206,3 @@ $('#quaggaBtn').click(function(){
         var code = result.codeResult.code;
         alert(code);
     });
-    
-     Quagga.start();
-    });
-});
