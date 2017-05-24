@@ -84,7 +84,24 @@
 				</div>
 			</div>
 
-			<div id="quaggaDiv"></div>
+			<div class="modal fade" id="scanModal" tabindex="-1" role="dialog" aria-labelledby="scanModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="scanModalLabel">Infos livraison</h4>
+						</div>
+						<div id="scanModalBody" class="modal-body">
+							<div id="quaggaDiv"></div>
+						</div>
+						<div class="modal-footer">
+							<p id="code"></p>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<!-- Modal -->
 			<div class="modal fade" id="infosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">

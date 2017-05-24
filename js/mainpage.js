@@ -43,6 +43,7 @@ function geo_error(error){
 
 $('#personBtn').click(function(){
     if(pos){
+        // Request parameters
         var params = {
             "name": $('#personInput').val(),
             "latitude": pos.coords.latitude,
@@ -57,13 +58,7 @@ $('#personBtn').click(function(){
 $('#phoneBtn').click(function(){
     var params = {
         // Request parameters
-        // "emailAddress": "{string}",
         "phoneNumber": $('#phoneInput').val()
-        // "name": "{string}",
-        // "postalAddress": "{string}",
-        // "latitude": "{number}",
-        // "longitude": "{number}",
-        // "range": "{integer}",
     };
     displayModal(params);
 });
@@ -116,21 +111,6 @@ function displayModal(params){
                         <dd>' + data.locpins[i].note + '</dd>\
                     </dl>'
                 );
-
-                    // <address>\
-                    //         <strong>'+data.locpins[i].line1+'</strong><br/>\
-                    //         '+data.locpins[i].line2+' '+data.locpins[i].line3+'<br/>\
-                    //         '+data.locpins[i].line4+'<br/>\
-                    //         '+data.locpins[i].postCode+' '+data.locpins[i].city+'<br/>\
-                    //     </address>\   
-                // $('#satelliteViewBtn').click(function(){
-                //     $('#satelliteViewModal').modal('show');
-                //     w = Math.floor($(window).width() * 0.9);
-                //     h = Math.floor($(window).height() * 0.9);
-                //     var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=' + gpsCoordinates;
-                //     $('#satelliteViewContent').html('<img src="'+imgsrc+'" />')
-                //     console.log(imgsrc);
-                // });
             }
         }
     })
@@ -144,67 +124,70 @@ function displayModal(params){
     });
 }
 
+$('#scanModal').on('hidden.bs.modal', function () {
+    isScanning = false;
+    Quagga.stop();
+    $('#quaggaDiv').html("");
+})
+
 $('#quaggaBtn').click(function(){
-    if(isScanning){
-        isScanning = false;
-        Quagga.stop();
-        $('#quaggaDiv').html("");
-    }
-    else{
+    $('#scanModal').modal('show');
 
-        Quagga.init({
-            inputStream : {
-              name : "Live",
-              type : "LiveStream",
-              target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
-            },
-            decoder : {
-              readers : ["ean_reader"]
-            },
-            debug: {
-              drawBoundingBox: true,
-              showFrequency: true,
-              drawScanline: true,
-              showPattern: true
-            },
-            multiple: true
-          }, function(err) {
-              if (err) {
-                  console.log(err);
-                  return
-              }
-              console.log("Initialization finished. Ready to start");
-              isScanning = true;
-              Quagga.start();
-        });
 
-        Quagga.onProcessed(function(result) {
-            var drawingCtx = Quagga.canvas.ctx.overlay,
-                drawingCanvas = Quagga.canvas.dom.overlay;
+    Quagga.init({
+        inputStream : {
+          name : "Live",
+          type : "LiveStream",
+          target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
+          size: 640  // restrict input-size to be 800px in width (long-side)
+        },
+        decoder : {
+          readers : ["ean_reader"]
+        }
+        // debug: {
+        //   drawBoundingBox: true,
+        //   showFrequency: true,
+        //   drawScanline: true,
+        //   showPattern: true
+        // },
+        // multiple: true
+      }, function(err) {
+          if (err) {
+              console.log(err);
+              return
+          }
+          console.log("Initialization finished. Ready to start");
+          isScanning = true;
+          Quagga.start();
+    });
 
-            if (result) {
-                if (result.boxes) {
-                    drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                    result.boxes.filter(function (box) {
-                        return box !== result.box;
-                    }).forEach(function (box) {
-                        Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                    });
-                }
+    Quagga.onProcessed(function(result) {
+        // var drawingCtx = Quagga.canvas.ctx.overlay,
+        //     drawingCanvas = Quagga.canvas.dom.overlay;
 
-                if (result.box) {
-                    Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-                }
+        // if (result) {
+        //     if (result.boxes) {
+        //         drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+        //         result.boxes.filter(function (box) {
+        //             return box !== result.box;
+        //         }).forEach(function (box) {
+        //             Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+        //         });
+        //     }
 
-                if (result.codeResult && result.codeResult.code) {
-                    Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-                }
-            }
-        });
+        //     if (result.box) {
+        //         Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+        //     }
 
-        Quagga.onDetected(function(result) {
-            var code = result.codeResult.code;
-            alert(code);
-        });
-    }
+        //     if (result.codeResult && result.codeResult.code) {
+        //         Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+        //     }
+        // }
+    });
+
+    Quagga.onDetected(function(result) {
+        var code = result.codeResult.code;
+        $('#code').html(code);
+    });
+    
 });
