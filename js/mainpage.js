@@ -190,7 +190,7 @@ $('#quaggaBtn').click(function(){
 
     Quagga.onDetected(function(result) {
         var code = result.codeResult.code;
-        $('#code').text(code);
+        alert(code);
     });
     
 });
