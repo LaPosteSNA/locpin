@@ -138,16 +138,11 @@ $('#quaggaBtn').click(function(){
             inputStream : {
               name : "Live",
               type : "LiveStream",
-              target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
-                constraints : {
-                    width:{max:320},
-                    height:{max:240},
-                    facingMode:"environment"
-                }
+              target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
             },
             decoder : {
               readers : ["ean_reader"]
-            }
+            },
             debug: {
               drawBoundingBox: true,
               showFrequency: true,
