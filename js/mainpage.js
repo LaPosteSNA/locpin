@@ -96,10 +96,10 @@ function displayModal(params){
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
                         <address>\
-                          <strong>'+data.locpins[i].line1+'</strong><br>\
-                          '+data.locpins[i].line2+' '+data.locpins[i].line3+'<br>\
-                          '+data.locpins[i].line4+'<br>\
-                          '+data.locpins[i].postCode+' '+data.locpins[i].city+'<br>\
+                          '+(data.locpins[i].line1?('<strong>'+data.locpins[i].line1+'</strong><br>'):'')+'\
+                          '+(data.locpins[i].line2?(data.locpins[i].line2+' '+data.locpins[i].line3+'<br>'):'')+'\
+                          '+(data.locpins[i].line4?(data.locpins[i].line4+'<br>'):'')+'\
+                          '+(data.locpins[i].postCode?(data.locpins[i].postCode+' '+data.locpins[i].city+'<br>'):'')+'\
                         </address>\
                         <dt>Latitude, Longitude</dt>\
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
@@ -110,6 +110,10 @@ function displayModal(params){
                                 <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
                             </div>\
                         </dd>\
+                        <dt>Labels</dt>\
+                        <dd>' + data.locpins[i].labels + '</dd>\
+                        <dt>Note</dt>\
+                        <dd>' + data.locpins[i].note + '</dd>\
                     </dl>'
                 );
 
