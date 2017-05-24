@@ -133,28 +133,23 @@ $('#scanModal').on('hidden.bs.modal', function () {
 $('#quaggaBtn').click(function(){
     $('#scanModal').modal('show');
 
-        isScanning = true;
-          Quagga.start();
-
-    
-});
 
     Quagga.init({
         inputStream : {
             name : "Live",
             type : "LiveStream",
             target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
-            // constraints: {
-            //     width: {max: 320},
-            //     height: {max: 240}
-            // }
+            constraints: {
+                width: {max: 320},
+                height: {max: 240}
+            }
         },
         decoder : {
           readers : [{
                         format: "code_128_reader",
                         config: {}
                             },{
-                            format: "ean_reader",
+                                format: "ean_reader",
                             config: {
                                 supplements: [
                                     'ean_5_reader', 'ean_2_reader'
@@ -175,7 +170,8 @@ $('#quaggaBtn').click(function(){
               return
           }
           console.log("Initialization finished. Ready to start");
-          
+          isScanning = true;
+          Quagga.start();
     });
 
     Quagga.onProcessed(function(result) {
@@ -206,3 +202,5 @@ $('#quaggaBtn').click(function(){
         var code = result.codeResult.code;
         alert(code);
     });
+    
+});
