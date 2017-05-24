@@ -171,8 +171,7 @@ $('#quaggaBtn').click(function(){
           }
           console.log("Initialization finished. Ready to start");
           isScanning = true;
-          Quagga.start();
-    });
+         
 
     Quagga.onProcessed(function(result) {
         var drawingCtx = Quagga.canvas.ctx.overlay,
@@ -203,4 +202,6 @@ $('#quaggaBtn').click(function(){
         alert(code);
     });
     
+     Quagga.start();
+    });
 });
