@@ -124,11 +124,11 @@ function displayModal(params){
     });
 }
 
-$('#scanModal').on('hidden.bs.modal', function () {
-    isScanning = false;
-    Quagga.stop();
-    $('#quaggaDiv').html("");
-})
+// $('#scanModal').on('hidden.bs.modal', function () {
+//     isScanning = false;
+//     Quagga.stop();
+//     $('#quaggaDiv').html("");
+// })
 
 $('#quaggaBtn').click(function(){
     $('#scanModal').modal('show');
