@@ -143,14 +143,14 @@ $('#quaggaBtn').click(function(){
         },
         decoder : {
           readers : ["ean_reader"]
-        }
+        },
         // debug: {
         //   drawBoundingBox: true,
         //   showFrequency: true,
         //   drawScanline: true,
         //   showPattern: true
         // },
-        // multiple: true
+        multiple: true
       }, function(err) {
           if (err) {
               console.log(err);
