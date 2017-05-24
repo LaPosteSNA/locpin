@@ -140,8 +140,8 @@ $('#quaggaBtn').click(function(){
             type : "LiveStream",
             target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
             constraints: {
-                width: 200,
-                height: 200,
+                width: 10,
+                height: 10,
                 facing: "environment" // or user
             }
         },
