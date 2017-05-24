@@ -141,8 +141,7 @@ $('#quaggaBtn').click(function(){
             target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
             constraints: {
                 width: 10,
-                height: 10,
-                facing: "environment" // or user
+                height: 10
             }
         },
         decoder : {
