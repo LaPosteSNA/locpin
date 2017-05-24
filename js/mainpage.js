@@ -148,12 +148,12 @@ $('#quaggaBtn').click(function(){
             decoder : {
               readers : ["ean_reader"]
             }
-            // debug: {
-            //   drawBoundingBox: true,
-            //   showFrequency: true,
-            //   drawScanline: true,
-            //   showPattern: true
-            // },
+            debug: {
+              drawBoundingBox: true,
+              showFrequency: true,
+              drawScanline: true,
+              showPattern: true
+            },
             multiple: true
           }, function(err) {
               if (err) {
