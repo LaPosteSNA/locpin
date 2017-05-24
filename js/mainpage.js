@@ -145,7 +145,17 @@ $('#quaggaBtn').click(function(){
             // }
         },
         decoder : {
-          readers : ["ean_reader"]
+          readers : [{
+                        format: "code_128_reader",
+                        config: {}
+                            },{
+                            format: "ean_reader",
+                            config: {
+                                supplements: [
+                                    'ean_5_reader', 'ean_2_reader'
+                                ]
+                            }
+                        }]
         },
         debug: {
           drawBoundingBox: true,
