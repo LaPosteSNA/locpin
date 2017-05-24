@@ -138,7 +138,7 @@ $('#quaggaBtn').click(function(){
         inputStream : {
           name : "Live",
           type : "LiveStream",
-          target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
+          target: document.querySelector('#quaggaDiv'),    // Or '#yourElement' (optional)
           size: 640  // restrict input-size to be 800px in width (long-side)
         },
         decoder : {
