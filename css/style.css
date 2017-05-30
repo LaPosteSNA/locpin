@@ -21,6 +21,20 @@
   padding:2px;
 }
 
+.logos {
+  display: flex;                  /* establish flex container */
+  flex-direction: row;            /* default value; can be omitted */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+  justify-content: space-between; /* switched from default (flex-start, see below) */
+  background-color: lightyellow;
+}
+
+.logos > .singlelogo {
+  object-fit: contain;
+  max-width: 20%;
+  max-height:75px;
+}
+
 /*.fake-btn {
   display: inline-flex;
   align-items: center;

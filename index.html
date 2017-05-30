@@ -17,15 +17,10 @@
 		<![endif]-->
 	</head>
 	<body>
-		<ol class="breadcrumb">
-			<div id="logos" style="text-align: justify;">
-				<img alt="La Poste" class="img-responsive" src="assets/img/Logo-laposte.png" style="max-width: 15%; max-height: 75px; display: inline-block;">
-				<img alt="Locpin" class="img-responsive" src="assets/img/locpin-r-cropped.png" style="max-width: 15%;  max-height: 75px; display: inline-block;">
-			</div>
-<!-- 			<li class="active">Accueil</a></li> -->
-			<!-- <li><a href="#">Accueil</a></li>
-			<li class="active">Infos Locpin</a></li> -->
-		</ol>
+		<div class="logos"">
+			<img alt="La Poste" class="singlelogo" src="assets/img/Logo-laposte.png">
+			<img alt="Locpin" class="singlelogo" src="assets/img/locpin-r-cropped.png">
+		</div>
 		
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -76,7 +71,7 @@
 						</div>
 						<div class="btn-group" role="group">
 							<div class="fake-btn">
-								<label class="btn btn-default btn-file btn-lg label-btn"><span class="glyphicon glyphicon-camera"></span><br/>Photo<input type="file" accept="image/*" style="display:none;" capture>
+								<label class="btn btn-default btn-file btn-lg label-btn"><span class="glyphicon glyphicon-camera"></span><br/>Photo<input id="photoBtn" type="file" accept="image/*" style="display:none;" capture>
 							</label>
 							</div>
 						</div>
@@ -148,6 +143,7 @@
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/quagga.js"></script>
+		<script src="js/quagga_file_input.js"></script>
 		<script src="js/mainpage.js"></script>
 	</body>
 </html>
