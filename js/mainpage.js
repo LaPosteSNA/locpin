@@ -99,8 +99,7 @@ function displayModal(params){
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
                             <div class="btn-group" role="group">\
-                                <a href="https://maps.apple.com/?q=' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
-                                <!--<a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GStaticMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>-->\
+                                <a href="https://maps.google.com/?q=' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
                                 <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
                             </div>\
                         </dd>\
@@ -109,6 +108,15 @@ function displayModal(params){
                         <dt>Note</dt>\
                         <dd>' + data.locpins[i].note + '</dd>\
                     </dl>'
+
+                    //IMPORTANT: About the maps.apple.com link for the "Navigation" button!
+                    //This is an interface provided by Apple that should launch your device's native maps app.
+                    //The downside is that you can't choose between multiple installed maps apps (choosing between Google Maps, Waze, Uber... on click)
+                    //To restore that functionality use this link instead (you'll have to put a workaround in place for iOS devices because they don't support geo: links)
+                    //<a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                
+                    //<a href="https://maps.apple.com/' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                                
                 );
             }
         }
