@@ -164,7 +164,6 @@ $(function() {
     Quagga.onDetected(function(result) {
         console.log(result.codeResult.code);
         $("#barcode").text(result.codeResult.code);
-        clearFileInput(document.getElementById("photoBtn"));
     }); 
 });
 
