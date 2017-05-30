@@ -1,21 +1,3 @@
-// Quagga.init({
-//     inputStream : {
-//       name : "Live",
-//       type : "LiveStream",
-//       target: document.querySelector('#yourElement')    // Or '#yourElement' (optional)
-//     },
-//     decoder : {
-//       readers : ["code_128_reader"]
-//     }
-//   }, function(err) {
-//       if (err) {
-//           console.log(err);
-//           return
-//       }
-//       console.log("Initialization finished. Ready to start");
-//       Quagga.start();
-//   });
-
 /* Key owner : Tom Solacroup */
 var GStaticMapsKey = "AIzaSyDkopOaAfNpTcySf81Ji_hk9qUHDe7rHVQ";
 
@@ -53,6 +35,23 @@ $('#personBtn').click(function(){
         displayModal(params);
     }
     else console.log("No geoloc available.");
+});
+
+$('#personInput').keypress(function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    $('#personBtn').click();
+    return false;  
+  }
+});
+$('#phoneInput').keypress(function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    $('#phoneBtn').click();
+    return false;  
+  }
 });
 
 $('#phoneBtn').click(function(){
@@ -100,7 +99,7 @@ function displayModal(params){
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
                             <div class="btn-group" role="group">\
-                                <a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                                <a href="https://maps.apple.com/?q=' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
                                 <!--<a href="http://maps.googleapis.com/maps/api/streetview?size=320x240&key=' + GStaticMapsKey + '&location=' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span> Photo proche</a>-->\
                                 <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
                             </div>\
@@ -132,61 +131,58 @@ $('#scanModal').on('hidden.bs.modal', function () {
 
 $('#quaggaBtn').click(function(){
     $('#scanModal').modal('show');
+    Quagga.init({
+        inputStream : {
+          name : "Live",
+          type : "LiveStream",
+          target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
+        },
+        decoder : {
+          readers : ["ean_reader"]
+        },
+        debug: {
+          drawBoundingBox: true,
+          showFrequency: true,
+          drawScanline: true,
+          showPattern: true
+        },
+        multiple: true
+      }, function(err) {
+          if (err) {
+              console.log(err);
+              return
+          }
+          console.log("Initialization finished. Ready to start");
+          isScanning = true;
+          Quagga.start();
+    });
 
+    Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
 
-        Quagga.init({
-            inputStream : {
-              name : "Live",
-              type : "LiveStream",
-              target: document.querySelector('#quaggaDiv')    // Or '#yourElement' (optional)
-            },
-            decoder : {
-              readers : ["ean_reader"]
-            },
-            debug: {
-              drawBoundingBox: true,
-              showFrequency: true,
-              drawScanline: true,
-              showPattern: true
-            },
-            multiple: true
-          }, function(err) {
-              if (err) {
-                  console.log(err);
-                  return
-              }
-              console.log("Initialization finished. Ready to start");
-              isScanning = true;
-              Quagga.start();
-        });
-
-        Quagga.onProcessed(function(result) {
-            var drawingCtx = Quagga.canvas.ctx.overlay,
-                drawingCanvas = Quagga.canvas.dom.overlay;
-
-            if (result) {
-                if (result.boxes) {
-                    drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                    result.boxes.filter(function (box) {
-                        return box !== result.box;
-                    }).forEach(function (box) {
-                        Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                    });
-                }
-
-                if (result.box) {
-                    Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
-                }
-
-                if (result.codeResult && result.codeResult.code) {
-                    Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-                }
+        if (result) {
+            if (result.boxes) {
+                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                result.boxes.filter(function (box) {
+                    return box !== result.box;
+                }).forEach(function (box) {
+                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
+                });
             }
-        });
 
-        Quagga.onDetected(function(result) {
-            var code = result.codeResult.code;
-            alert(code);
-        });
-    
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+            }
+
+            if (result.codeResult && result.codeResult.code) {
+                Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+            }
+        }
+    });
+
+    Quagga.onDetected(function(result) {
+        var code = result.codeResult.code;
+        alert(code);
+    });
 });
