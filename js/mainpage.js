@@ -30,7 +30,7 @@ $('#personBtn').click(function(){
             "name": $('#personInput').val(),
             "latitude": pos.coords.latitude,
             "longitude": pos.coords.longitude,
-            // "range": "{integer}",
+            "range": 5000 //range (in meters?)
         };
         displayModal(params);
     }
@@ -84,13 +84,16 @@ function displayModal(params){
                 w = Math.floor($(window).width() * 0.9);
                 h = Math.floor($(window).height() * 0.9);
 
-                //add + '&markers=label:L%7C' + gpsCoordinates + '&markers=size:mid%7Ccolor:0xf7ea85%7Clabel:P%7C' + data.locpins[i].line4 + ' ' + data.locpins[i].postCode at the end to pinpoint the postal adress
+                //Add this at the end of the string to pinpoint the postal adress
+                //+ '&markers=label:L%7C' + gpsCoordinates + '&markers=size:mid%7Ccolor:0xf7ea85%7Clabel:P%7C' + data.locpins[i].line4 + ' ' + data.locpins[i].postCode
                 var imgsrc = 'http://maps.googleapis.com/maps/api/staticmap?zoom=18&maptype=satellite&size='+w+'x'+h+'&key=' + GStaticMapsKey + '&markers=label:L%7C' + gpsCoordinates;
                 
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
                         <address>\
-                          '+(data.locpins[i].line1?('<strong>'+data.locpins[i].line1+'</strong><br>'):'')+'\
+                          '+
+                          //here are some dank ternaries
+                          (data.locpins[i].line1?('<strong>'+data.locpins[i].line1+'</strong><br>'):'')+'\
                           '+(data.locpins[i].line2?(data.locpins[i].line2+' '+data.locpins[i].line3+'<br>'):'')+'\
                           '+(data.locpins[i].line4?(data.locpins[i].line4+'<br>'):'')+'\
                           '+(data.locpins[i].postCode?(data.locpins[i].postCode+' '+data.locpins[i].city+'<br>'):'')+'\
@@ -99,7 +102,7 @@ function displayModal(params){
                         <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
                             <!-- Standard button -->\
                             <div class="btn-group" role="group">\
-                                <a href="https://maps.google.com/?q=' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
+                                '+ createNavigationLink(gpsCoordinates) +'\
                                 <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
                             </div>\
                         </dd>\
@@ -107,16 +110,7 @@ function displayModal(params){
                         <dd>' + data.locpins[i].labels + '</dd>\
                         <dt>Note</dt>\
                         <dd>' + data.locpins[i].note + '</dd>\
-                    </dl>'
-
-                    //IMPORTANT: About the maps.apple.com link for the "Navigation" button!
-                    //This is an interface provided by Apple that should launch your device's native maps app.
-                    //The downside is that you can't choose between multiple installed maps apps (choosing between Google Maps, Waze, Uber... on click)
-                    //To restore that functionality use this link instead (you'll have to put a workaround in place for iOS devices because they don't support geo: links)
-                    //<a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
-                
-                    //<a href="https://maps.apple.com/' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>\
-                                
+                    </dl>'          
                 );
             }
         }
@@ -136,6 +130,23 @@ $('#scanModal').on('hidden.bs.modal', function () {
     Quagga.stop();
     $('#quaggaDiv').html("");
 })
+
+function createNavigationLink(gpsCoordinates){
+    //Use Geo URI on Android to enable use with multiple apps.
+    //For other platforms, the Apple interface should redirect most devices to their most appropriate app or website (ie Apple Maps for iOS, Bing for Windows Phone...)
+    var elementWithGeoURI = '<a href="geo:' + gpsCoordinates + "?q=" + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>'
+    var elementWithAppleURI = '<a href="https://maps.apple.com/?q=' + gpsCoordinates + '" type="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Navigation</a>'
+    var ua = navigator.userAgent.toLowerCase();
+    var isAndroid = ua.indexOf("android") > -1;
+    if(isAndroid) {
+      return elementWithGeoURI;
+    }
+    else return elementWithAppleURI;
+
+    //IMPORTANT: About the maps.apple.com link for the "Navigation" button!
+                    //This is an interface provided by Apple that should launch your device's native maps app.
+                    //The downside is that you can't choose between multiple installed maps apps (choosing between Google Maps, Waze, Uber... on click)
+}
 
 $('#quaggaBtn').click(function(){
     $('#scanModal').modal('show');
