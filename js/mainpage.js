@@ -4,6 +4,10 @@ var GStaticMapsKey = "AIzaSyDkopOaAfNpTcySf81Ji_hk9qUHDe7rHVQ";
 var isScanning = false;
 var pos;
 
+$(window).on('load',function(){
+    $("#loading").fadeOut();
+});
+
 $('#geolocBtn').click(function(){
     $('#geolocBtn').prop('disabled', true);
     $('#geolocBtn').html('Géolocalisation en cours...')
@@ -129,6 +133,10 @@ $('#scanModal').on('hidden.bs.modal', function () {
     isScanning = false;
     Quagga.stop();
     $('#quaggaDiv').html("");
+})
+
+$('#infosModal').on('hidden.bs.modal', function () {
+    $('#infosModal').html('<img src="assets/img/ajax-loader.gif" style="width: 10%; display: block; margin: 0 auto;"/>');
 })
 
 function createNavigationLink(gpsCoordinates){
