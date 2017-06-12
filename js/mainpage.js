@@ -136,7 +136,7 @@ $('#scanModal').on('hidden.bs.modal', function () {
 })
 
 $('#infosModal').on('hidden.bs.modal', function () {
-    $('#infosModal').html('<img src="assets/img/ajax-loader.gif" style="width: 10%; display: block; margin: 0 auto;"/>');
+    $('#modalBody').html('<img src="assets/img/ajax-loader.gif" style="width: 10%; display: block; margin: 0 auto;"/>');
 })
 
 function createNavigationLink(gpsCoordinates){
