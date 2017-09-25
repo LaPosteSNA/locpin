@@ -67,13 +67,16 @@ $('#phoneBtn').click(function(){
 });
 
 
+/* old Ocp-Apim-Subscription-Key Locpin :   09a3083ac93e4a17a69a780b04f71875 */
+/* old url Locpin : "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" */
+/* Key owner : Hervé Marimbordes */
 function displayModal(params){
     $('#infosModal').modal('show');
     $.ajax({
-        url: "https://locpinpartnertest.azure-api.net/Delivery/api/Locpins?" + $.param(params),
+        url: "https://locpin.azure-api.net/Delivery/api/Locpins?" + $.param(params),
         beforeSend: function(xhrObj){
             // Request headers
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","09a3083ac93e4a17a69a780b04f71875");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","6d1732a7d7e44850a07c8d7f0c30118d");
         },
         type: "GET"
     })
@@ -114,6 +117,8 @@ function displayModal(params){
                         <dd>' + data.locpins[i].labels + '</dd>\
                         <dt>Note</dt>\
                         <dd>' + data.locpins[i].note + '</dd>\
+						 <dt>Voisin</dt>\
+                       <dd>' + data.locpins[i].preferredNeighbour + '</dd>\
                     </dl>'          
                 );
             }
