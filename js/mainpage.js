@@ -97,28 +97,27 @@ function displayModal(params){
                 
                 $('#locpinList').append(
                     '<dl class="dl-horizontal list-group-item">\
-                        <address>\
-                          '+
-                          //here are some dank ternaries
-                          (data.locpins[i].line1?('<strong>'+data.locpins[i].line1+'</strong><br>'):'')+'\
-                          '+(data.locpins[i].line2?(data.locpins[i].line2+' '+data.locpins[i].line3+'<br>'):'')+'\
-                          '+(data.locpins[i].line4?(data.locpins[i].line4+'<br>'):'')+'\
-                          '+(data.locpins[i].postCode?(data.locpins[i].postCode+' '+data.locpins[i].city+'<br>'):'')+'\
-                        </address>\
-                        <dt>Latitude, Longitude</dt>\
-                        <dd> ' + data.locpins[i].latitude + ', ' + data.locpins[i].longitude + '<br/>\
-                            <!-- Standard button -->\
-                            <div class="btn-group" role="group">\
-                                '+ createNavigationLink(gpsCoordinates) +'\
-                                <a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
-                            </div>\
-                        </dd>\
-                        <dt>Labels</dt>\
-                        <dd>' + data.locpins[i].labels + '</dd>\
+                        <dt>Adresse</dt>\
+							<dd>' + (data.locpins[i].line1?(data.locpins[i].line1):'') + '</dd>\
+							<dd>' + (data.locpins[i].line2?(data.locpins[i].line2):'') + '</dd>\
+							<dd>' + (data.locpins[i].line3?(data.locpins[i].line3):'') + '</dd>\
+							<dd>' + (data.locpins[i].line4?(data.locpins[i].line4):'') + '</dd>\
+							<dd>' + (data.locpins[i].postCode?(data.locpins[i].postCode + ' ' + data.locpins[i].city) :'') + '</dd>\
+						<dt>Client</dt>\
+							<dd>' + data.locpins[i].owner.firstName + ' ' + data.locpins[i].owner.lastName + '</dd>\
+							<dd>' + (data.locpins[i].owner.phoneNumber?(data.locpins[i].owner.phoneNumber):'') + '</dd>\
+							<dd>' + (data.locpins[i].owner.email?(data.locpins[i].owner.email):'') + '</dd>\<br>\
+                        <dt>Localisation</dt>\
+							<dd><!-- Standard button -->\
+								<div class="btn-group" role="group">\
+									'+ createNavigationLink(gpsCoordinates) +'\
+									<a href="'+imgsrc+'" target="_blank" id="satelliteViewBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-road"></span> Carte</a>\
+								</div>\
+							</dd>\
                         <dt>Note</dt>\
-                        <dd>' + data.locpins[i].note + '</dd>\
+							<dd>' + (data.locpins[i].note?(data.locpins[i].note):'') + '</dd>\
 						 <dt>Voisin</dt>\
-                       <dd>' + data.locpins[i].preferredNeighbour + '</dd>\
+							<dd>' + (data.locpins[i].preferredNeighbour?(data.locpins[i].preferredNeighbour):'') + '</dd>\
                     </dl>'          
                 );
             }
